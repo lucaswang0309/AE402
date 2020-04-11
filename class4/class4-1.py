@@ -40,30 +40,36 @@ done = False
 # 創造一個clock控制畫面更新速度
 clock = pygame.time.Clock()
 x = y = 0
-circlesize = 50
 background =pygame.image.load("saturn_family1.jpg")
-player =pygame.image.load("playerShip1_orange.png")
+player =pygame.image.load("Spongebob-squarepants-1-.png")
+
 # -------- 主要的程式迴圈 -----------
 while not done:
     # --- 事件迴圈 event loop
     for event in pygame.event.get(): # 從事件list中抓取事件
         if event.type == pygame.QUIT: # 當使用者按下結束
             done = True # 將done變數設為True-->while迴圈將會結束   
-        x,y = pygame.mouse.get_pos()
-        circlesize = 0
-        color = randomcolor()
+        #x,y = pygame.mouse.get_pos()
 
     # --- 程式的運算與邏輯
+    keys = pygame.key.get_pressed()
     
-
+    
+    if keys[pygame.K_LEFT]:
+        x -= 5
+    if keys[pygame.K_RIGHT]:
+        x += 5
+    if keys[pygame.K_UP]:
+        y -= 5
+    if keys[pygame.K_DOWN]:
+        y += 5
     # --- 繪圖的程式碼
     #       先將畫面塗滿底色(將原有畫面清掉)
     #       繪圖的程式要寫在這行後面，不然會被這行清掉
-    x,y = pygame.mouse.get_pos()
-    y -= player.get_height() / 2
-    x -= player.get_width() / 2
+    screen.fill(BLACK)
     screen.blit(background,[0,0])
     screen.blit(player,[x,y])
+    
     
     # --- 更新畫面
     pygame.display.flip()
