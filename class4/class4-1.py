@@ -42,7 +42,11 @@ clock = pygame.time.Clock()
 x = y = 0
 background =pygame.image.load("saturn_family1.jpg")
 player =pygame.image.load("Spongebob-squarepants-1-.png")
-
+boxes = []
+for _ in range(10):
+    x = random.randrange(size[0])
+    y = random.randrange(size[1])
+    boxes.append([x,y])
 # -------- 主要的程式迴圈 -----------
 while not done:
     # --- 事件迴圈 event loop

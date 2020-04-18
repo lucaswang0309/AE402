@@ -34,6 +34,10 @@ done = False
 clock = pygame.time.Clock()
 x = y = 0
 circlesize = 50
+background = pygame.image.load("saturn_family1.jpg")
+player = pygame.image.load("playerShip1_orange.png")
+sound = pygame.mixer.music.load("laser5.ogg")
+
 # -------- 主要的程式迴圈 -----------
 while not done:
     # --- 事件迴圈 event loop
@@ -41,9 +45,7 @@ while not done:
         if event.type == pygame.QUIT: # 當使用者按下結束
             done = True # 將done變數設為True-->while迴圈將會結束
         if event.type == pygame.MOUSEBUTTONDOWN:
-            x,y = pygame.mouse.get_pos()
-            circlesize = 0
-            color = randomcolor()
+           sound.play()
 
     # --- 程式的運算與邏輯
     
@@ -51,11 +53,8 @@ while not done:
     # --- 繪圖的程式碼
     #       先將畫面塗滿底色(將原有畫面清掉)
     #       繪圖的程式要寫在這行後面，不然會被這行清掉
-    screen.fill(BLACK)
-    circlesize += 1
-    if circlesize < 50:
-        pygame.draw.circle(screen, color, (x,y), circlesize)
-
+    screen.blit(background)
+    screen.blit(player),[0,0]
     
     # --- 更新畫面
     pygame.display.flip()
