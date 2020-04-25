@@ -42,15 +42,16 @@ clock = pygame.time.Clock()
 allSprites = pygame.sprite.Group()
 blocks = pygame.sprite.Group()
 for i in range(10):
-    if i % 2 == 0:
-        pass
-    else:
-        block = Block(WHITE, 70, 70)
-    block = Block(RED, 70, 70)
-    block.rect.x = i*70
-    block.rect.y = 0
-    blocks.add(block)
-    allSprites.add(block)
+    for j in range(10):
+        color = RED
+        if (i+j) % 2 == 1:
+            color = WHITE
+       
+        block = Block(color, 70, 15)
+        block.rect.x = i*70
+        block.rect.y = 15*j
+        blocks.add(block)
+        allSprites.add(block)
     
 player = Block(WHITE, 50, 50)  
 allSprites.add(player)
