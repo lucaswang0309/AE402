@@ -18,6 +18,7 @@ BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
 GREEN    = (   0, 255,   0)
 RED      = ( 255,   0,   0)
+BLUE     = (   0,   0, 255)
 
 class Block(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
@@ -25,6 +26,16 @@ class Block(pygame.sprite.Sprite):
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
         self.rect = self.image.get_rect()
+        
+        
+class Ball(pygame.sprite.Sprite):
+    def __init__(self,speed, x, y, r, color):
+        super().__init__()
+        self.image = pygame.Surface([r*2, r*2])
+        pygame.draw.circle(self.image, color, (r, r), r)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 # 初始化pygame
 pygame.init()
 # 創造一個pygame視窗並設定大小及標題
@@ -41,21 +52,26 @@ clock = pygame.time.Clock()
 
 allSprites = pygame.sprite.Group()
 blocks = pygame.sprite.Group()
-for i in range(10):
-    for j in range(10):
+for i in range(100):
+    for j in range(500):
         color = RED
-        if (i+j) % 2 == 1:
+        if (i+j) % 3 == 1:
             color = WHITE
+        elif (i+j) % 3 == 2:
+            color = RED
+        else:
+            color = BLUE
        
-        block = Block(color, 70, 15)
-        block.rect.x = i*70
+        block = Block(color, 10, 15)
+        block.rect.x = i*10
         block.rect.y = 15*j
         blocks.add(block)
         allSprites.add(block)
     
-player = Block(WHITE, 50, 50)  
-allSprites.add(player)
-
+player = Block(WHITE, 100, 100)  
+allSprites.add(player) 
+ball = Ball(0, 300, 300, 30, WHITE)
+allSprites.add(ball)
 # -------- 主要的程式迴圈 -----------
 while not done:
     # --- 事件迴圈 event loop
@@ -87,7 +103,7 @@ while not done:
     pygame.display.flip()
 
     # --- 每秒鐘60個frame
-    clock.tick(60)
+    clock.tick(240)
 
 # 關閉式窗並離開程式
 pygame.quit()
