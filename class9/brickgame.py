@@ -39,28 +39,7 @@ class Ball(pygame.sprite.Sprite):  #球體角色
         else:
             return False
         
-        
-        
-        
-        '''
-        radian = math.radians(self.direction)  #角度轉為弳度
-        self.dx = self.speed * math.cos(radian)  #球水平運動速度
-        self.dy = -self.speed * math.sin(radian)  #球垂直運動速度
-        self.x += self.dx  #計算球新坐標
-        self.y += self.dy
-        self.rect.x = self.x  #移動球圖形
-        self.rect.y = self.y
-        if(self.rect.left <= 0 or self.rect.right >= screen.get_width()-10):  #到達左右邊界
-            self.bouncelr()
-        elif(self.rect.top <= 10):  #到達上邊界
-            self.rect.top = 10
-            self.bounceup()
-        if(self.rect.bottom >= screen.get_height()-10):  #到達下邊界出界
-            return True
-        else:
-            return False
-            '''
-        
+
  
     def bounceup(self):  #上邊界反彈
         self.direction = 360 - self.direction
@@ -87,11 +66,12 @@ class Pad(pygame.sprite.Sprite):  #滑板角色
         self.rect.y = screen.get_height() - self.rect.height - 20
  
     def update(self):  #滑板位置隨滑鼠移動
+        
         pos = pygame.mouse.get_pos()  #取得滑鼠坐標
         self.rect.x = pos[0]  #滑鼠x坐標
         if self.rect.x > screen.get_width() - self.rect.width:  #不要移出右邊界
             self.rect.x = screen.get_width() - self.rect.width
-
+        
 def gameover(message):  #結束程式
     global running            
     text = font1.render(message, 1, (255,0,255))  #顯示訊息
@@ -138,6 +118,8 @@ while running:
     if buttons[0]:  #按滑鼠左鍵後球可移動
         playing = True
     if playing == True:  #遊戲進行中
+        
+        '
         screen.blit(background, (0,0))  #清除繪圖視窗
         fail = ball.update()  #移動球體
         if fail:  #球出界
@@ -155,6 +137,7 @@ while running:
         if hitpad:  #球和滑板發生碰撞
             soundpad.play()  #球撞滑板聲
             ball.bounceup()  #球反彈
+            
         allsprite.draw(screen)  #繪製所有角色
         msgstr = "得分：" + str(score)
     msg = font.render(msgstr, 1, (255,0,255))
