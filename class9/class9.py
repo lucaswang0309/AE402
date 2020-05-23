@@ -12,7 +12,7 @@ Created on Sat May  9 14:52:35 2020
 # 匯入pygame模組
 import pygame
 import random
-from class11 import Snake 
+from class11 import Snake,Food
 
 def randomcolor():
     r = random.randrange(256)
@@ -44,7 +44,10 @@ done = False
 # 創造一個clock控制畫面更新速度
 clock = pygame.time.Clock()
 snake = Snake(5)
-
+food = Food(WHITE, 300, 300)
+eat = False
+g = pygame.sprite.Group()
+g.add(food)
 # -------- 主要的程式迴圈 -----------
 while not done:
     # --- 事件迴圈 event loop
@@ -57,11 +60,16 @@ while not done:
     
     pressed = pygame.key.get_pressed()
     snake.move(pressed)
-
+    snake.Foodeating(g)
+    
+    #eatFood = pygame.sprite.groupcollide(snake.group, g, False, True)
+    #if eatFood:
+     #   snake.append(len(eatFood.values())*10)
     # --- 繪圖的程式碼
     #       先將畫面塗滿底色(將原有畫面清掉)
     #       繪圖的程式要寫在這行後面，不然會被這行清掉
     screen.fill(BLACK)
+    g.draw(screen)
     snake.group.draw(screen)
     # --- 更新畫面
     pygame.display.flip()
